@@ -1,0 +1,33 @@
+name: Audit
+
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ^1.18
+
+      - name: Tidy
+        run: go mod tidy
+
+      - name: Verify dependency
+        run: go mod verify
+
+      - name: Install golangci-linter
+        run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+      - name: Run golangci-lint
+        run: golangci-lint run --enable-all ./...
+
+      - name: Run test
+        run: go test -race -v -coverprofile coverage ./...

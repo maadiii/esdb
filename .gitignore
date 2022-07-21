@@ -12,4 +12,15 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
+
+# IDEs
+.idea/
+.idea
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+.vscode
+*.swo
+*.swp
+

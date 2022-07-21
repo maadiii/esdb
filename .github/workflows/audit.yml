@@ -34,7 +34,6 @@ jobs:
       - name: Run test
         run: 
           go test -race -v -coverprofile coverage.out ./...
-          go tool cover -func coverage.out -o=coverage.out
 
       - name: Go Coverage Badge
         uses: tj-actions/coverage-badge-go@v1

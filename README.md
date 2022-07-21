@@ -1,1 +1,1 @@
-# EventStoreDB
+# Event store relational database

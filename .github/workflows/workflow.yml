@@ -11,6 +11,21 @@ on:
 jobs:
   audit:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        options:
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v3
       
@@ -31,28 +46,5 @@ jobs:
       - name: Run golangci-lint
         run: golangci-lint run --enable-all --disable lll --disable goerr113 --disable godox ./...
 
-  test:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: postgres
-        options:
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-    steps:
-      - name: Run test
-        run: 
-          go test -race -v $PWD/...
-
-      - name: Go Coverage Badge
-        uses: tj-actions/coverage-badge-go@v1
-        with:
-          filename: coverage.out
+      - name: Run tests
+        run: go test -race -v ./...

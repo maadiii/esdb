@@ -50,7 +50,9 @@ jobs:
     steps:
       - name: Run test
         run: 
-          go test -race -v ./...
+          ls -lah
+          pwd
+          go test -race -v $PWD/...
 
       - name: Go Coverage Badge
         uses: tj-actions/coverage-badge-go@v1

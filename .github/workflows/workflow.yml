@@ -50,8 +50,6 @@ jobs:
     steps:
       - name: Run test
         run: 
-          ls -lah
-          pwd
           go test -race -v $PWD/...
 
       - name: Go Coverage Badge

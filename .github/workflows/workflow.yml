@@ -48,9 +48,3 @@ jobs:
 
       - name: Run tests
         run: go test -race -v ./... -coverprofile coverage.out
-
-      - name: Install gopherbadger
-        run: go install github.com/jpoles1/gopherbadger@latest
-
-      - name: Make badge
-        run: gopherbadger -md="README.md,coverage.out"
